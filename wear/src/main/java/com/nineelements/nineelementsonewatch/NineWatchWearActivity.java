@@ -111,7 +111,7 @@ public class NineWatchWearActivity extends Activity {
         textView.setText("" + character.getCharacter());
 
         if(character.isOn()) {
-            textView.setTextColor(Color.parseColor("#ff0000"));
+            textView.setTextColor(Color.parseColor("#ffffff"));
         } else {
             if(!isDimmed) {
                 textView.setTextColor(Color.parseColor("#3a3a3a"));
