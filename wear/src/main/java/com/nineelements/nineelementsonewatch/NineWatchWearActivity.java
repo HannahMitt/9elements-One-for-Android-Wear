@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 import com.nineelements.nineelementsonewatch.models.TimeToWordsEnglish;
 
-import java.lang.*;
 import java.util.Calendar;
 
 import firstwatch.com.nineelements.nineelementsone.R;
 
 public class NineWatchWearActivity extends Activity {
+
+    private static final boolean DEBUG = false;
+
     private final static IntentFilter intentFilter;
     private boolean isDimmed = false;
     private TimeToWordsEnglish timeToWords;
@@ -35,7 +37,9 @@ public class NineWatchWearActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("9elements One", "onCreate();");
+        if (DEBUG) {
+            Log.v("9elements One", "onCreate();");
+        }
 
         createLayout();
 
@@ -47,7 +51,9 @@ public class NineWatchWearActivity extends Activity {
     public BroadcastReceiver timeInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context arg0, Intent intent) {
-            Log.v("WatchFace", "timeChanged();");
+            if (DEBUG) {
+                Log.v("WatchFace", "timeChanged();");
+            }
             updateLayout();
         }
     };
@@ -59,7 +65,7 @@ public class NineWatchWearActivity extends Activity {
 
         setContentView(R.layout.activity_nine_watch_wear);
 
-        LinearLayout verticalLinearLayout = (LinearLayout)findViewById(R.id.verticalLinearLayout);
+        LinearLayout verticalLinearLayout = (LinearLayout) findViewById(R.id.verticalLinearLayout);
 
         textViews = new TextView[timeToWords.getWidth()][timeToWords.getHeight()];
 
@@ -110,10 +116,10 @@ public class NineWatchWearActivity extends Activity {
     public void updateTextViewForCharacter(TextView textView, com.nineelements.nineelementsonewatch.models.Character character) {
         textView.setText("" + character.getCharacter());
 
-        if(character.isOn()) {
+        if (character.isOn()) {
             textView.setTextColor(Color.parseColor("#ffffff"));
         } else {
-            if(!isDimmed) {
+            if (!isDimmed) {
                 textView.setTextColor(Color.parseColor("#3a3a3a"));
             } else {
                 textView.setTextColor(Color.parseColor("#000000"));
@@ -125,7 +131,9 @@ public class NineWatchWearActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.v("9elements One", "onPause();");
+        if (DEBUG) {
+            Log.v("9elements One", "onPause();");
+        }
         isDimmed = true;
         updateLayout();
     }
@@ -133,7 +141,9 @@ public class NineWatchWearActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.v("9elements One", "onResume();");
+        if (DEBUG) {
+            Log.v("9elements One", "onResume();");
+        }
         isDimmed = false;
         updateLayout();
     }
@@ -141,7 +151,9 @@ public class NineWatchWearActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.v("9elements One", "onDestroy();");
+        if (DEBUG) {
+            Log.v("9elements One", "onDestroy();");
+        }
         unregisterReceiver(timeInfoReceiver);
     }
 }
